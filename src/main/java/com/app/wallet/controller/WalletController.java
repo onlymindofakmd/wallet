@@ -2,6 +2,8 @@ package com.app.wallet.controller;
 
 import com.app.wallet.controller.request.WalletRequest;
 import com.app.wallet.model.AppWallet;
+import com.app.wallet.service.AppWalletAvailableService;
+import com.app.wallet.service.AppWalletItemService;
 import com.app.wallet.service.AppWalletService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,10 @@ public class WalletController {
 
     @Autowired
     private AppWalletService walletService;
+    @Autowired
+    private AppWalletItemService walletItemService;
+    @Autowired
+    private AppWalletAvailableService walletAvailableService;
 
     @PostMapping(path = "/add")
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,4 +42,10 @@ public class WalletController {
         return walletService.getAppWalletById(map, id);
     }
 
+    @PostMapping("/getWallets")
+    @ResponseBody
+    public Map<String, Object> getWalletByUserId(Long userId){
+        Map<String, Object> map = new HashMap<>();
+        return walletService.getAppWalletByUserId(map, userId);
+    }
 }

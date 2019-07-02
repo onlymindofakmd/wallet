@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,6 +33,11 @@ public class AppWalletService extends AppCommonService {
         return retSuccess(map, aw);
     }
 
+    public Map<String, Object> getAppWalletByUserId(Map<String, Object> map, Long userId) {
+        if(!check(map)) return map;
+        List<AppWallet> ls = jpa.findAllByUserId(userId);
+        return retSuccess(map, ls);
+    }
 
 
 }
