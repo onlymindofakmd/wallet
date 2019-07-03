@@ -5,18 +5,16 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="APP_WALLET_AVAILABLE")
+@Table(name="D_WALLET_TYPE")
 @Builder
 @Data
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppWalletAvailable implements BaseModel {
+public class DWalletType implements BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long walletId;
     private Long userId;
-    private String walletName;
-    private Long walletType;
+    private String dTypeName;
 }

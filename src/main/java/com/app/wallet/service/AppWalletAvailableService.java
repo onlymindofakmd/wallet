@@ -25,4 +25,10 @@ public class AppWalletAvailableService extends AppCommonService {
         return retSuccess(map, awa);
     }
 
+    public Map<String, Object> saveAppWalletAvailable(Map<String, Object> map, AppWalletAvailable walletAvailable){
+        if(!check(map)) return map;
+        walletAvailable = jpa.save(walletAvailable);
+        return retSuccess(map, walletAvailable);
+    }
+
 }
