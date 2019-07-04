@@ -1,5 +1,7 @@
 package com.app.wallet.utils;
 
+import com.app.wallet.utils.enums.AdvanceEnum;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,9 +44,14 @@ public class StringUtils {
     public static boolean isEmpty(String[] s) {
         return s == null || s.length== 0;
     }
-//
+
 //    public static void main(String[] strs){
+//        int i = 1;
 //
-//        System.out.println(shuffileStr());
+//        for(AdvanceEnum av: AdvanceEnum.values()){
+//            System.out.println(av.ordinal());
+//        }
 //    }
+
+
 }

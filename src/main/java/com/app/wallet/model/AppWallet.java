@@ -1,5 +1,8 @@
 package com.app.wallet.model;
 
+import com.app.wallet.utils.enums.AdvanceEnum;
+import com.app.wallet.utils.enums.ShareEnum;
+import com.app.wallet.utils.enums.WalletProperty;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import org.joda.money.Money;
@@ -23,12 +26,17 @@ public class AppWallet implements BaseModel {
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyMinorAmount",
             parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
     private Money balance;
-    private Integer allowAdvance;
+    @Enumerated
+    private AdvanceEnum allowAdvance;
     private Integer isValid;
     private String description;
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyMinorAmount",
             parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
     private Money autoConfigScale;
     private Integer autoConfigType;
-    private Integer dataShare;
+    @Enumerated
+    private ShareEnum dataShare;
+    @Enumerated
+    private WalletProperty walletProperty;
+
 }

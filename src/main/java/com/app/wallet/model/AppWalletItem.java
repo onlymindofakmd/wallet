@@ -1,5 +1,6 @@
 package com.app.wallet.model;
 
+import com.app.wallet.utils.enums.ItemProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +35,7 @@ public class AppWalletItem implements BaseModel {
     private Integer day;
     private String createTime;
     private String updateTime;
+    @Enumerated
+    private ItemProperty itemProperty;
 
 }

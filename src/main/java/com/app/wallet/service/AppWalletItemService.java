@@ -27,7 +27,7 @@ public class AppWalletItemService extends AppCommonService {
 
     public Map<String, Object> findById(Map<String, Object> map, Long id){
         if(!check(map)) return map;
-        AppWalletItem awi = jpa.getOne(id);
+        AppWalletItem awi = jpa.findById(id).get();
         return retSuccess(map, awi);
     }
 

@@ -20,6 +20,7 @@ public class AppWalletService extends AppCommonService {
     public Map<String, Object> addAppWallet(Map<String, Object> map, AppWallet wallet){
         checkExist(map, wallet);
         if(!check(map)) return map;
+        wallet.setIsValid(0);
         wallet = jpa.save(wallet);
         return retSuccess(map, wallet);
     }
