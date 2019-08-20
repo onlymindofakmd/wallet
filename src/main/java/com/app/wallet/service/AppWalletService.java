@@ -27,7 +27,7 @@ public class AppWalletService extends AppCommonService {
 
     public Map<String, Object> checkExist(Map<String, Object> map, AppWallet wallet) {
         if(!check(map)) return map;
-        AppWallet temp = jpa.findByWalletTypeAndUserId(wallet.getWalletType(),wallet.getUserId());
+        AppWallet temp = jpa.findByUserId(wallet.getUserId());
         if(temp==null){
             return map;
         }else{

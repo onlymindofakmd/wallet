@@ -3,6 +3,7 @@ package com.app.wallet.service;
 import com.app.wallet.model.AppWalletItem;
 import com.app.wallet.repository.AppWalletItemRepository;
 import com.app.wallet.utils.PageUtil;
+import com.app.wallet.utils.enums.ItemProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,13 @@ public class AppWalletItemService extends AppCommonService {
         if(!check(map)) return map;
         Page<AppWalletItem> page = getModels(jpa, awi, pageUtil.getPage());
         return retSuccess(map, page);
+    }
+
+    public boolean addItem(AppWalletItem item) {
+        if(item.getItemProperty().name().equals(ItemProperty.PLUS.name())){
+            return true;
+        }else
+            return false;
     }
 
 }

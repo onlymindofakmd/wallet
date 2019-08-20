@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface AppWalletRepository extends JpaRepository<AppWallet, Long> {
     List<AppWallet> findAllByUserId(Long userId);
-    AppWallet findByWalletTypeAndUserId(Long walletType, Long userId);
+    AppWallet findByUserId(Long userId);
 }

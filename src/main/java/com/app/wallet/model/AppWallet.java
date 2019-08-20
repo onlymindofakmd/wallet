@@ -22,7 +22,6 @@ public class AppWallet implements BaseModel {
     private Long id;
     private Long userId;
     private String walletName;
-    private Long walletType;
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyMinorAmount",
             parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
     private Money balance;
@@ -30,10 +29,6 @@ public class AppWallet implements BaseModel {
     private AdvanceEnum allowAdvance;
     private Integer isValid;
     private String description;
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyMinorAmount",
-            parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "CNY")})
-    private Money autoConfigScale;
-    private Integer autoConfigType;
     @Enumerated
     private ShareEnum dataShare;
     @Enumerated

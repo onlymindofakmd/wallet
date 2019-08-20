@@ -33,11 +33,11 @@ public class WalletApplication {
 		};
 	}
 
-	@Bean
-	public RedisTemplate<String, JsonObject> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		RedisTemplate<String, JsonObject> template = new RedisTemplate<>();
-		template.setConnectionFactory(redisConnectionFactory);
-		return template;
-	}
+//	@Bean
+//	public RedisTemplate<String, JsonObject> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+//		RedisTemplate<String, JsonObject> template = new RedisTemplate<>();
+//		template.setConnectionFactory(redisConnectionFactory);
+//		return template;
+//	}
 
 }

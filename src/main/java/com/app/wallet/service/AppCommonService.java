@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -111,6 +112,14 @@ public class AppCommonService {
     public <T extends BaseModel> Page<T> getModels(JpaRepository jpa, T t, Pageable page){
         Example<T> e = Example.of(t);
         return jpa.findAll(e,page);
+    }
+
+    public void checkTransaction(Map<String, Object> map) {
+        if(map.get("success")==null||(int)map.get("success")==0) {
+
+        }else {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
     }
 
 }
