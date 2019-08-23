@@ -1,9 +1,11 @@
 package com.app.wallet.service;
 
 import com.app.wallet.model.AppWalletItem;
+import com.app.wallet.model.WalletDict;
 import com.app.wallet.repository.AppWalletItemRepository;
 import com.app.wallet.utils.PageUtil;
 import com.app.wallet.utils.enums.ItemProperty;
+import com.app.wallet.utils.enums.WalletTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -49,6 +51,16 @@ public class AppWalletItemService extends AppCommonService {
             return true;
         }else
             return false;
+    }
+
+    public Map<String, Object> getTypes(Map<String, Object> map){
+        if(!check(map)) return map;
+        List<WalletDict> ls = new ArrayList<>();
+        for(WalletTypes wt: WalletTypes.values()){
+            WalletDict w = WalletDict.builder().code(wt.getId()).name(wt.getdTypeName()).build();
+            ls.add(w);
+        }
+        return retSuccess(map, ls);
     }
 
 }

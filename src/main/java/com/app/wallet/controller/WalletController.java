@@ -93,4 +93,12 @@ public class WalletController {
         return map;
     }
 
+    @GetMapping("/getTypes")
+    @ResponseBody
+    public Map<String, Object> getWalletTypes(){
+        Map<String, Object> map = new HashMap<>();
+        walletItemService.getTypes(map);
+        return map;
+    }
+
 }
