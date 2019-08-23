@@ -28,7 +28,7 @@ public class WalletController {
     @Autowired
     private CheckDataService checkDataService;
 
-    @PostMapping(path = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(path = "/addWallet", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody
     public Map<String, Object> addWallet(@Valid AppWallet wallet, Principal user){
         Map<String, Object> map = new HashMap<>();
@@ -37,9 +37,9 @@ public class WalletController {
         return map;
     }
 
-    @PostMapping("/getWalletById")
+    @PostMapping("/getWallet")
     @ResponseBody
-    public Map<String, Object> getWalletById(Long id, Principal user){
+    public Map<String, Object> getWallet(Long id, Principal user){
         log.info("begin method getById and id :" + id);
         Map<String, Object> map = new HashMap<>();
         walletService.getAppWalletById(map, id);
@@ -50,7 +50,7 @@ public class WalletController {
 
     @PostMapping("/getWallets")
     @ResponseBody
-    public Map<String, Object> getWalletByUserId(Long userId, Principal user){
+    public Map<String, Object> getWallets(Long userId, Principal user){
         Map<String, Object> map = new HashMap<>();
         checkDataService.checkBefore(map, user, userId);
         return walletService.getAppWalletByUserId(map, userId);
