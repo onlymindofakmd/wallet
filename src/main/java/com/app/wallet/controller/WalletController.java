@@ -7,6 +7,8 @@ import com.app.wallet.utils.DateUtils;
 import com.app.wallet.utils.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +29,14 @@ public class WalletController {
     private AppWalletItemService walletItemService;
     @Autowired
     private CheckDataService checkDataService;
+    @Autowired
+    private RedisTemplate<String, String> template;
 
     @PostMapping(path = "/addWallet", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody
     public Map<String, Object> addWallet(@Valid AppWallet wallet, Principal user){
         Map<String, Object> map = new HashMap<>();
-        checkDataService.checkBefore(map, user, wallet);
+        checkDataService.checkBefore(map, user, wallet, template);
         walletService.addAppWallet(map, wallet);
         return map;
     }
@@ -44,7 +48,7 @@ public class WalletController {
         Map<String, Object> map = new HashMap<>();
         walletService.getAppWalletById(map, id);
         AppWallet wallet = (AppWallet)walletService.getProp(map);
-        checkDataService.checkAfter(map, user, wallet);
+        checkDataService.checkAfter(map, user, wallet, template);
         return map;
     }
 
@@ -52,7 +56,7 @@ public class WalletController {
     @ResponseBody
     public Map<String, Object> getWallets(Long userId, Principal user){
         Map<String, Object> map = new HashMap<>();
-        checkDataService.checkBefore(map, user, userId);
+        checkDataService.checkBefore(map, user, userId, template);
         return walletService.getAppWalletByUserId(map, userId);
     }
 
@@ -61,7 +65,7 @@ public class WalletController {
     @Transactional
     public Map<String, Object> addWalletItem(AppWalletItem walletItem, Principal user){
         Map<String, Object> map = new HashMap<>();
-        checkDataService.checkBefore(map, user, walletItem);
+        checkDataService.checkBefore(map, user, walletItem, template);
         walletItem.setCreateTime(DateUtils.format("yyyyMMdd hhmmss", new Date()));
         walletItem.setUpdateTime(DateUtils.format("yyyyMMdd hhmmss", new Date()));
         walletItemService.saveOrUpdateAppWalletItem(map, walletItem);
@@ -80,7 +84,7 @@ public class WalletController {
         Map<String, Object> map = new HashMap<>();
         walletItemService.findById(map, id);
         AppWalletItem walletItem = (AppWalletItem) walletItemService.getProp(map);
-        checkDataService.checkAfter(map, user, walletItem);
+        checkDataService.checkAfter(map, user, walletItem, template);
         return map;
     }
 
@@ -88,7 +92,7 @@ public class WalletController {
     @ResponseBody
     public Map<String, Object> getWalletItems(AppWalletItem awi, PageUtil page, Principal user) {
         Map<String, Object> map = new HashMap<>();
-        checkDataService.checkBefore(map, user, awi);
+        checkDataService.checkBefore(map, user, awi, template);
         walletItemService.dynamicQuery(map, awi, page);
         return map;
     }
