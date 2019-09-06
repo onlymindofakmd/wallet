@@ -16,6 +16,10 @@ public class PageUtil implements Serializable {
     private String orderStr;
 
     public PageRequest getPage(){
+        if(StringUtils.isEmpty(orderStr)){
+            Sort sort = Sort.by(Sort.Direction.DESC, "id");
+            return PageRequest.of(page, size, sort);
+        }
         return PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(orderType), orderStr));
     }
 
