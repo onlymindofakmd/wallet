@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 public class RedisUtil {
     private static RedisUtil instance;
+    public static final String CACHE = "ZYF_APP_USER";
 
     public static RedisUtil getInstance() {
         if(instance == null) {

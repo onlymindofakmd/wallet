@@ -14,7 +14,6 @@ import java.util.Map;
 @Service
 @Slf4j
 public class CheckDataService extends AppCommonService{
-    private final String CACHE = "ZYF_APP_USER";
 
     public <T extends BaseModel> Map<String, Object> checkBefore(Map<String,Object> map, Principal user, T t, RedisTemplate<String, String> template) {
         return checkBefore(map, user, t.getUserId(), template);
@@ -22,7 +21,7 @@ public class CheckDataService extends AppCommonService{
 
     public Map<String, Object> checkBefore(Map<String,Object> map, Principal user, Long userId, RedisTemplate<String, String> template) {
         if(!check(map)) return map;
-        JsonObject jo = RedisUtil.getInstance().get(CACHE, user.getName(), template);
+        JsonObject jo = RedisUtil.getInstance().get(RedisUtil.CACHE, user.getName(), template);
         if(jo==null){
             return retFail(map, MessageUtil.SYS_ERROR);
         }

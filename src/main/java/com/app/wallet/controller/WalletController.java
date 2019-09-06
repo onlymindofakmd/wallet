@@ -5,6 +5,8 @@ import com.app.wallet.model.AppWalletItem;
 import com.app.wallet.service.*;
 import com.app.wallet.utils.DateUtils;
 import com.app.wallet.utils.PageUtil;
+import com.app.wallet.utils.RedisUtil;
+import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -44,11 +46,17 @@ public class WalletController {
     @PostMapping("/getWallet")
     @ResponseBody
     public Map<String, Object> getWallet(Long id, Principal user){
-        log.info("begin method getById and id :" + id);
+        log.info("begin method getWallet and id :" + id);
         Map<String, Object> map = new HashMap<>();
-        walletService.getAppWalletById(map, id);
-        AppWallet wallet = (AppWallet)walletService.getProp(map);
-        checkDataService.checkAfter(map, user, wallet, template);
+        if (id == null){
+            JsonObject jo = RedisUtil.getInstance().get(RedisUtil.CACHE, user.getName(), template);
+            id = Long.parseLong((jo.get("id").toString()));
+            walletService.getAppWalletById(map, id);
+        }else{
+            walletService.getAppWalletById(map, id);
+            AppWallet wallet = (AppWallet)walletService.getProp(map);
+            checkDataService.checkAfter(map, user, wallet, template);
+        }
         return map;
     }
 
@@ -56,6 +64,10 @@ public class WalletController {
     @ResponseBody
     public Map<String, Object> getWallets(Long userId, Principal user){
         Map<String, Object> map = new HashMap<>();
+        if(userId == null){
+            JsonObject jo = RedisUtil.getInstance().get(RedisUtil.CACHE, user.getName(), template);
+            userId = Long.parseLong((jo.get("id").toString()));
+        }
         checkDataService.checkBefore(map, user, userId, template);
         return walletService.getAppWalletByUserId(map, userId);
     }
@@ -82,9 +94,15 @@ public class WalletController {
     @ResponseBody
     public Map<String, Object> getWalletItem(Long id, Principal user) {
         Map<String, Object> map = new HashMap<>();
-        walletItemService.findById(map, id);
-        AppWalletItem walletItem = (AppWalletItem) walletItemService.getProp(map);
-        checkDataService.checkAfter(map, user, walletItem, template);
+        if(id==null){
+            JsonObject jo = RedisUtil.getInstance().get(RedisUtil.CACHE, user.getName(), template);
+            id = Long.parseLong((jo.get("id").toString()));
+            walletItemService.findById(map, id);
+        }else {
+            walletItemService.findById(map, id);
+            AppWalletItem walletItem = (AppWalletItem) walletItemService.getProp(map);
+            checkDataService.checkAfter(map, user, walletItem, template);
+        }
         return map;
     }
 
@@ -92,6 +110,11 @@ public class WalletController {
     @ResponseBody
     public Map<String, Object> getWalletItems(AppWalletItem awi, PageUtil page, Principal user) {
         Map<String, Object> map = new HashMap<>();
+        if(awi.getUserId()==null){
+            JsonObject jo = RedisUtil.getInstance().get(RedisUtil.CACHE, user.getName(), template);
+            Long id = Long.parseLong((jo.get("id").toString()));
+            awi.setUserId(id);
+        }
         checkDataService.checkBefore(map, user, awi, template);
         walletItemService.dynamicQuery(map, awi, page);
         return map;
