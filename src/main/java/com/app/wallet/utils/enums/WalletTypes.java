@@ -1,6 +1,7 @@
 package com.app.wallet.utils.enums;
 
 public enum WalletTypes {
+    TRANSFER(0, "存款"),
     COMMON(1, "通用"),
     TRAVEL(2, "旅游"),
     CHILDREN(3, "孩子"),
@@ -12,16 +13,15 @@ public enum WalletTypes {
     TICKET(9, "车票"),
     GIFT(10, "礼物"),
     SURPRISE(12, "惊喜"),
-    TRANSFER(13, "转账"),
-    BORROW(14, "借款"),
-    BORROW_B(15, "还款"),
-    LEND(16, "借给"),
-    LEND_B(17, "已还");
+    BORROW(13, "借入"),
+    BORROW_B(14, "还款"),
+    LEND(15, "借出"),
+    LEND_B(16, "已还");
 
     private Integer id;
     private String dTypeName;
 
-    private WalletTypes(Integer i,String str){
+    WalletTypes(Integer i,String str){
         this.id = i;
         this.dTypeName=str;
     }

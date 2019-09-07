@@ -11,16 +11,16 @@ import java.io.Serializable;
 @Setter
 public class PageUtil implements Serializable {
     private int page;
-    private int size;
+    private int perPage;
     private String orderType;
     private String orderStr;
 
     public PageRequest getPage(){
         if(StringUtils.isEmpty(orderStr)){
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return PageRequest.of(page, size, sort);
+            return PageRequest.of(page, perPage, sort);
         }
-        return PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(orderType), orderStr));
+        return PageRequest.of(page, perPage, Sort.by(Sort.Direction.fromString(orderType), orderStr));
     }
 
 

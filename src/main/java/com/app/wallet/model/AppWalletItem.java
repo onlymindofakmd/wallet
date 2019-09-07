@@ -28,6 +28,7 @@ public class AppWalletItem implements BaseModel {
     private String itemName;
     private String itemDescription;
     private Integer itemType;
+//    private String tags;
     private Long walletId;
     private Long userId;
     private Integer year;

@@ -47,7 +47,7 @@ public class AppWalletItemService extends AppCommonService {
     }
 
     public boolean addItem(AppWalletItem item) {
-        if(item.getItemProperty().name().equals(ItemProperty.PLUS.name())){
+        if(item.getItemProperty().name().equals(ItemProperty.DEPOSIT.name())){
             return true;
         }else
             return false;
