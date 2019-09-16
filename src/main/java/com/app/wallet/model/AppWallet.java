@@ -1,6 +1,7 @@
 package com.app.wallet.model;
 
 import com.app.wallet.utils.enums.AdvanceEnum;
+import com.app.wallet.utils.enums.PaymentMethod;
 import com.app.wallet.utils.enums.ShareEnum;
 import com.app.wallet.utils.enums.WalletProperty;
 import lombok.*;
@@ -33,5 +34,7 @@ public class AppWallet implements BaseModel {
     private ShareEnum dataShare;
     @Enumerated
     private WalletProperty walletProperty;
+    @Enumerated
+    private PaymentMethod paymentMethod;
 
 }
